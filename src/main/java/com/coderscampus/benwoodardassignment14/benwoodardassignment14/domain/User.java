@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +21,10 @@ public class User {
     private Long userId;
     private String name;
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "users_chats",
+    @JoinTable(name = "users_channels",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "chat_id"))
-    private List<Chat> chats = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn(name = "channel_id"))
+    private List<Channel> channels = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Message> messages = new ArrayList<>();
 

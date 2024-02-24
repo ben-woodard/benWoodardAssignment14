@@ -20,8 +20,8 @@ public class Message {
     @Column(length = 300)
     private String messageText;
     @ManyToOne
-    @JoinColumn(name = "chat_id")
-    private Chat chat;
+    @JoinColumn(name = "channel_id")
+    private Channel channel;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

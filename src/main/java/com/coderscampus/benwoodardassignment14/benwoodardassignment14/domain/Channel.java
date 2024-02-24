@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,22 +13,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "chats")
-public class Chat {
+@Table(name = "channel")
+public class Channel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long chatId;
-    @ManyToMany(mappedBy = "chats")
+    private Long channelId;
+    private String channelName;
+    @ManyToMany(mappedBy = "channels")
     private List<User> users = new ArrayList<>();
-    @OneToMany(mappedBy = "chat")
+    @OneToMany(mappedBy = "channel")
     private List<Message> messages = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "account")
-//    private List<Transaction> transactions = new ArrayList<>();
-//
-//    @ManyToOne
-//    @JoinColumn(name="account_id")
-//    private Account account;
 
 }
