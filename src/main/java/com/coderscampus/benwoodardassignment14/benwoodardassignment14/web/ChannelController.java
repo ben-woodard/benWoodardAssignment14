@@ -4,13 +4,14 @@ import com.coderscampus.benwoodardassignment14.benwoodardassignment14.domain.Cha
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.domain.User;
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.service.ChannelService;
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import org.springframework.web.servlet.support.RequestContextUtils;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ChannelController {
@@ -26,11 +27,14 @@ public class ChannelController {
 
 
     @GetMapping("/welcome")
-    public String getWelcomePage(ModelMap model, @ModelAttribute User user) {
-        if (user.getName() != null) {
-            userService.checkForUserGeneralChannel(user);
-            model.put("channels", user.getChannels());
-            model.put("user", user);
+    public String getWelcomePage(ModelMap model, HttpServletRequest request) throws InterruptedException {
+
+        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
+        if (inputFlashMap != null) {
+            User user = (User) inputFlashMap.get("user");
+            List<Channel> channels = channelService.findAll();
+            model.addAttribute("channels", channels);
+            model.addAttribute("user", user);
         }
         return "welcome";
     }

@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "channel")
+@Table(name = "channels")
 public class Channel {
 
     @Id
@@ -23,7 +23,7 @@ public class Channel {
     private String channelName;
     @ManyToMany(mappedBy = "channels")
     private List<User> users = new ArrayList<>();
-    @OneToMany(mappedBy = "channel")
+    @OneToMany(mappedBy = "channel", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Message> messages = new ArrayList<>();
 
 

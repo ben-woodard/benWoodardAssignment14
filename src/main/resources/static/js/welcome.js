@@ -1,8 +1,8 @@
 
-const name = window.prompt("Please Enter Your Name")
-createUser();
+window.onloadstart(createUser)
 
  function createUser () {
+    const name= prompt("Please Enter Your Name")
     const user = {
         'name': name
     }

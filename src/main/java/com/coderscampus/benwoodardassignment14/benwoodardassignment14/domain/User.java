@@ -19,7 +19,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    @Column(unique = true)
     private String name;
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "users_channels",
@@ -28,5 +27,6 @@ public class User {
     private List<Channel> channels = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Message> messages = new ArrayList<>();
+
 
 }

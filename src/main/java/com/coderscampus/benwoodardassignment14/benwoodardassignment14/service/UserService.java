@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-
     private final UserRepository userRepo;
     private final ChannelService channelService;
 
@@ -20,33 +19,24 @@ public class UserService {
     }
 
 
-
-
     public User save(User user) {
         return userRepo.save(user);
     }
 
-    public User checkForUserGeneralChannel(User user) {
-        if(user.getChannels().contains("General")){
-            return user;
-        } else if(channelService.findByChannelName("General") == null){
+    public User checkUserContainsGeneralChannel(User user) {
+      if(channelService.findByChannelName("General") == null){
             Channel channel =  new Channel();
             channel.setChannelName("General");
+            channelService.save(channel);
             user.getChannels().add(channel);
             channel.getUsers().add(user);
-            channelService.save(channel);
-            return userRepo.save(user);
-        } else {
+            userRepo.save(user);
+        } else if(!(user.getChannels()).contains(channelService.findByChannelName("General"))) {
             Channel channel = channelService.findByChannelName("General");
             user.getChannels().add(channel);
             channel.getUsers().add(user);
-            return user;
         }
+      return user;
     }
 
-//    public User checkIfNewUser(User user) {
-//        if(!userRepo.findById(user.getUserId()).isPresent()){
-//            User newUser = new User();
-//        }
-//    }
 }
