@@ -19,6 +19,7 @@ public class Channel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long channelId;
+    @Column(unique = true)
     private String channelName;
     @ManyToMany(mappedBy = "channels")
     private List<User> users = new ArrayList<>();
