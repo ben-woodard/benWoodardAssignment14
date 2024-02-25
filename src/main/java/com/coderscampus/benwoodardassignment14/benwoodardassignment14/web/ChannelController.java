@@ -7,6 +7,7 @@ import com.coderscampus.benwoodardassignment14.benwoodardassignment14.service.Us
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.RequestContextUtils;
@@ -27,16 +28,20 @@ public class ChannelController {
 
 
     @GetMapping("/welcome")
-    public String getWelcomePage(ModelMap model, HttpServletRequest request) throws InterruptedException {
+    public String getWelcomePage(ModelMap modelMap, Model model)  {
+        if(model.asMap().get("user") == null) {
 
-        Map<String, ?> inputFlashMap = RequestContextUtils.getInputFlashMap(request);
-        if (inputFlashMap != null) {
-            User user = (User) inputFlashMap.get("user");
-            List<Channel> channels = channelService.findAll();
-            model.addAttribute("channels", channels);
-            model.addAttribute("user", user);
+            return "welcome";
+        } else {
+//            User modelUser = (User) model.asMap().get("user");
+//            User dbUser = userService.findById(modelUser.getUserId());
+//            List<Channel> channels = channelService.findAll();
+//            modelMap.addAttribute("channels", channels);
+            User dbUser = new User();
+            dbUser.setName("Joe");
+            modelMap.addAttribute("user", dbUser);
+            return "welcome";
         }
-        return "welcome";
     }
 
     @GetMapping("channels/{channelId}")

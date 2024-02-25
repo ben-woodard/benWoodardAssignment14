@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class UserController {
@@ -24,11 +24,11 @@ public class UserController {
 
     @PostMapping("/user/create")
     @ResponseBody
-    public ModelAndView createUser(@RequestBody User user, RedirectAttributes redirectAttributes) {
+    public RedirectView createUser(@RequestBody User user, RedirectAttributes redirectAttributes) {
         userService.save(user);
         userService.checkUserContainsGeneralChannel(user);
         redirectAttributes.addFlashAttribute("user", user);
-        return new ModelAndView("redirect:/welcome");
+        return new RedirectView("/welcome", true);
     }
 
 

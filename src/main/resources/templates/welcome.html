@@ -10,7 +10,9 @@
         <a method="get" th:href="@{/channels/{channelId}(channelId=${channel.channelId})}">
           <span th:text="${channel.channelName}">[[${channel.channelName}]]</span>
         </a>
+
     </div>
+<span th:if="${user != null}" th:text="${user.name}">[[${user.name}]]</span>
 <script src="/js/welcome.js"></script>
 </body>
 </html>
