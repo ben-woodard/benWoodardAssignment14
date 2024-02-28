@@ -1,18 +1,14 @@
 package com.coderscampus.benwoodardassignment14.benwoodardassignment14.web;
 
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.domain.Channel;
-import com.coderscampus.benwoodardassignment14.benwoodardassignment14.domain.User;
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.service.ChannelService;
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.RequestContextUtils;
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 public class ChannelController {
@@ -28,20 +24,10 @@ public class ChannelController {
 
 
     @GetMapping("/welcome")
-    public String getWelcomePage(ModelMap modelMap, Model model)  {
-        if(model.asMap().get("user") == null) {
-
-            return "welcome";
-        } else {
-//            User modelUser = (User) model.asMap().get("user");
-//            User dbUser = userService.findById(modelUser.getUserId());
-//            List<Channel> channels = channelService.findAll();
-//            modelMap.addAttribute("channels", channels);
-            User dbUser = new User();
-            dbUser.setName("Joe");
-            modelMap.addAttribute("user", dbUser);
-            return "welcome";
-        }
+    public String getWelcomePage(ModelMap modelMap)  {
+        List<Channel> channels = channelService.findAll();
+        modelMap.put("channels", channels);
+        return "welcome";
     }
 
     @GetMapping("channels/{channelId}")

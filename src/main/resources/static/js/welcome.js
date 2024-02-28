@@ -1,19 +1,27 @@
-const name= prompt("Please Enter Your Name")
 createUser();
 
- function createUser () {
-    const user = {
-        'name': name
+function createUser() {
+    if (sessionStorage.getItem("userName") === null) {
+        const name = prompt("Please Enter Your Name");
+        const user = {
+            'name': name
+        }
+        sessionStorage.setItem("userName", name);
+       fetch('/user/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        }).then(response => {
+            console.log(response);
+            location.reload();
+        })
+    } else {
+        location.reload();
     }
-     fetch('/user/create', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    }).then(response => console.log(response))
-
 }
+
 
 
 

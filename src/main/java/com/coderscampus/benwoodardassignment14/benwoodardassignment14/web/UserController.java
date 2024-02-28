@@ -4,6 +4,8 @@ import com.coderscampus.benwoodardassignment14.benwoodardassignment14.domain.Use
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.service.ChannelService;
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,12 +26,15 @@ public class UserController {
 
     @PostMapping("/user/create")
     @ResponseBody
-    public RedirectView createUser(@RequestBody User user, RedirectAttributes redirectAttributes) {
+    public ResponseEntity createUser(@RequestBody User user)  {
         userService.save(user);
         userService.checkUserContainsGeneralChannel(user);
-        redirectAttributes.addFlashAttribute("user", user);
-        return new RedirectView("/welcome", true);
-    }
+        if(userService.findById(user.getUserId()).equals(user)) {
+            return new ResponseEntity(user, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Error in saving the user", HttpStatus.BAD_REQUEST);
+        }
 
+    }
 
 }
