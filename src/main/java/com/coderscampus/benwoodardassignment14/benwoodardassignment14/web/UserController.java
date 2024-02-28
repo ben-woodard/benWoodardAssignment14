@@ -28,7 +28,7 @@ public class UserController {
     @ResponseBody
     public ResponseEntity createUser(@RequestBody User user)  {
         userService.save(user);
-        userService.checkUserContainsGeneralChannel(user);
+//        userService.checkUserContainsGeneralChannel(user);
         if(userService.findById(user.getUserId()).equals(user)) {
             return new ResponseEntity(user, HttpStatus.OK);
         } else {
