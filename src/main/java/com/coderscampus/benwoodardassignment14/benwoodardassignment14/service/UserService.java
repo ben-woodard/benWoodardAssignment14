@@ -23,21 +23,21 @@ public class UserService {
         return userRepo.save(user);
     }
 
-//    public User checkUserContainsGeneralChannel(User user) {
-//      if(channelService.findByChannelName("General") == null){
-//            Channel channel =  new Channel();
-//            channel.setChannelName("General");
-//            channelService.save(channel);
-//            user.getChannels().add(channel);
-//            channel.getUsers().add(user);
-//            userRepo.save(user);
-//        } else if(!(user.getChannels()).contains(channelService.findByChannelName("General"))) {
-//            Channel channel = channelService.findByChannelName("General");
-//            user.getChannels().add(channel);
-//            channel.getUsers().add(user);
-//        }
-//      return user;
-//    }
+    public User checkUserContainsGeneralChannel(User user) {
+      if(channelService.findByChannelName("General") == null){
+            Channel channel =  new Channel();
+            channel.setChannelName("General");
+            channelService.save(channel);
+            user.getChannels().add(channel);
+            channel.getUsers().add(user);
+            userRepo.save(user);
+        } else if(!(user.getChannels()).contains(channelService.findByChannelName("General"))) {
+            Channel channel = channelService.findByChannelName("General");
+            user.getChannels().add(channel);
+            channel.getUsers().add(user);
+        }
+      return user;
+    }
 
     public User findById(Long userId) {
         return userRepo.findById(userId).orElse(null);

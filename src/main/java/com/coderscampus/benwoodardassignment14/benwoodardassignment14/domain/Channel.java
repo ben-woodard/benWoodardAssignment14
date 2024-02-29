@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 @Table(name = "channels")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "users"})
 public class Channel {
 
     @Id
@@ -23,23 +23,10 @@ public class Channel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long channelId;
     private String channelName;
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "channels")
     private List<User> users = new ArrayList<>();
     @OneToMany(mappedBy = "channel", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonIgnore
     private List<Message> messages = new ArrayList<>();
-
-
-    //    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
-//    @JoinTable(name = "user_account",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "account_id"))
-//    private List<Account> accounts = new ArrayList<>();
-//    @OneToOne(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-//    private Address address;
-
-//    @OneToMany(mappedBy = "account")
-//    private List<Transaction> transactions = new ArrayList<>();
-//    @ManyToMany(mappedBy = "accounts")
-//    private List<User> users = new ArrayList<>();
+    
 }

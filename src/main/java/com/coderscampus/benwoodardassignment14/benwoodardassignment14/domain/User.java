@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+
 @Table(name = "users")
 public class User {
 
@@ -27,6 +27,7 @@ public class User {
     @JoinTable(name = "users_channels",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "channel_id"))
+    @JsonManagedReference
     private List<Channel> channels = new ArrayList<>();
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
