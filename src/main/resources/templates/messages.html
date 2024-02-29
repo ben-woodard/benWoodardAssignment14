@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:text="${channel.channelName}"></title>
+    <span id="channelId" type="hidden" th:value="${channel.channelId}"></span>
+    <link rel="stylesheet" href="/js/css/messages.css">
 </head>
 <body>
-    <h1>Messages Template</h1>
+<h1 th:text="${channel.channelName}" id="channel-name"></h1>
+<div th:each="message : ${channel.messages}">
+        <span id="text-box">
+            <p id="sender-name">[[${message.user.name}]]:</p>
+            <p th:text="${message.messageText}" id="message-text"></p>
+        </span>
+</div>
+<hr/>
+<input id="messageBody"/>
+<script src="/js/messages.js"></script>
 </body>
 </html>
