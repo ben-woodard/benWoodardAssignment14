@@ -15,18 +15,24 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 @Table(name = "channels")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "users"})
 public class Channel {
 
     @Id
-    @JsonProperty("id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long channelId;
     private String channelName;
-    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "channels")
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
-    @OneToMany(mappedBy = "channel", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "channel", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Message> messages = new ArrayList<>();
-    
+
+    @Override
+    public String toString() {
+        return "Channel{" +
+                "channelId=" + channelId +
+                ", channelName='" + channelName + '\'' +
+                '}';
+    }
 }

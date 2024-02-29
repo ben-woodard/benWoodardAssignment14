@@ -11,9 +11,8 @@ import java.util.Optional;
 @Repository
 public interface ChannelRepository extends JpaRepository<Channel, Long> {
 
-    @Override
     @Query("select c.channelName from Channel c where c.channelId IS NOT NULL")
-    List<Channel> findAll();
+    List<Channel> findAllChannelNames();
 
     Optional<Channel> findByChannelName(String channelName);
 }

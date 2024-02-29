@@ -14,12 +14,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-
 @Table(name = "users")
 public class User {
 
     @Id
-    @JsonProperty("id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String name;
@@ -27,14 +25,11 @@ public class User {
     @JoinTable(name = "users_channels",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "channel_id"))
-    @JsonManagedReference
+    @JsonIgnore
     private List<Channel> channels = new ArrayList<>();
-    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true)
+    @JsonIgnore
     private List<Message> messages = new ArrayList<>();
-
-
-
-
 
     @Override
     public String toString() {

@@ -1,8 +1,5 @@
 package com.coderscampus.benwoodardassignment14.benwoodardassignment14.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,12 +11,10 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 @Table(name = "messages")
 public class Message {
 
     @Id
-    @JsonProperty("id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
     @Column(length = 300)
@@ -30,4 +25,13 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "messageId=" + messageId +
+                ", messageText='" + messageText + '\'' +
+                '}';
+    }
 }

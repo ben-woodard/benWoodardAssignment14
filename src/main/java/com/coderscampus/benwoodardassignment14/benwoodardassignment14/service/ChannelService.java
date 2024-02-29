@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChannelService {
@@ -32,5 +33,9 @@ public class ChannelService {
 
     public List<Channel> findAll() {
        return channelRepo.findAll();
+    }
+
+    public List<Channel> findAllChannelNames() {
+        return channelRepo.findAllChannelNames();
     }
 }
