@@ -1,13 +1,11 @@
 package com.coderscampus.benwoodardassignment14.benwoodardassignment14.service;
 
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.domain.Channel;
-import com.coderscampus.benwoodardassignment14.benwoodardassignment14.domain.User;
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.repository.ChannelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ChannelService {
@@ -35,7 +33,7 @@ public class ChannelService {
        return channelRepo.findAll();
     }
 
-    public List<Channel> findAllChannelNames() {
+    public List<String> findAllChannelNames() {
         return channelRepo.findAllChannelNames();
     }
 }

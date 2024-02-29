@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ChannelRepository extends JpaRepository<Channel, Long> {
 
     @Query("select c.channelName from Channel c where c.channelId IS NOT NULL")
-    List<Channel> findAllChannelNames();
+    List<String> findAllChannelNames();
 
     Optional<Channel> findByChannelName(String channelName);
 }

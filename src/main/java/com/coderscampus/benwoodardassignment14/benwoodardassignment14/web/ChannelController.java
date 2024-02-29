@@ -25,7 +25,7 @@ public class ChannelController {
 
     @GetMapping("/welcome")
     public String getWelcomePage(ModelMap modelMap)  {
-            List<Channel> channels = channelService.findAllChannelNames();
+            List<Channel> channels = channelService.findAll();
             modelMap.put("channels", channels);
 
         return "welcome";
