@@ -17,8 +17,6 @@ function createUser() {
             console.log(response);
             location.reload();
         })
-    } else {
-        location.reload();
     }
 }
 
