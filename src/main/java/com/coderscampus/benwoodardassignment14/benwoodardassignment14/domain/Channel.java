@@ -28,6 +28,10 @@ public class Channel {
     @JsonIgnore
     private List<Message> messages = new ArrayList<>();
 
+    public Channel(String channelName) {
+        this.channelName = channelName;
+    }
+
     @Override
     public String toString() {
         return "Channel{" +

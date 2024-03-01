@@ -31,6 +31,9 @@ public class User {
     @JsonIgnore
     private List<Message> messages = new ArrayList<>();
 
+    public User(String name){
+        this.name = name;
+    }
     @Override
     public String toString() {
         return "User{" +

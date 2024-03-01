@@ -18,15 +18,13 @@ public class UserService {
         this.channelService = channelService;
     }
 
-
     public User save(User user) {
         return userRepo.save(user);
     }
 
     public User checkUserContainsGeneralChannel(User user) {
       if(channelService.findByChannelName("General") == null){
-            Channel channel =  new Channel();
-            channel.setChannelName("General");
+            Channel channel =  new Channel("General");
             channelService.save(channel);
             user.getChannels().add(channel);
             channel.getUsers().add(user);
@@ -41,5 +39,9 @@ public class UserService {
 
     public User findById(Long userId) {
         return userRepo.findById(userId).orElse(null);
+    }
+
+    public User findByName(String name) {
+        return userRepo.findByName(name);
     }
 }

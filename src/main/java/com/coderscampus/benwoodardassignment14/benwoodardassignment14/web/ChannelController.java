@@ -9,7 +9,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-
 @Controller
 public class ChannelController {
 
@@ -22,12 +21,10 @@ public class ChannelController {
         this.userService = userService;
     }
 
-
     @GetMapping("/welcome")
     public String getWelcomePage(ModelMap modelMap)  {
             List<Channel> channels = channelService.findAll();
             modelMap.put("channels", channels);
-
         return "welcome";
     }
 

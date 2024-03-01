@@ -2,16 +2,12 @@ body{
     font-size: 16px;
 }
 
-#text-box{
-    max-width: 50%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+#new-text{
     padding-left: 1rem;
-    height: 1.1rem;
+    margin-bottom: 1rem;
 }
 
-#sender-name{
+.sender-name{
     padding-right: .5rem;
     font-weight: bolder;
 }

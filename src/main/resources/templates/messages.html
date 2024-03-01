@@ -7,13 +7,9 @@
     <link rel="stylesheet" href="/js/css/messages.css">
 </head>
 <body>
-<h1 th:text="${channel.channelName}" id="channel-name"></h1>
-<div th:each="message : ${channel.messages}">
-        <span id="text-box">
-            <p id="sender-name">[[${message.user.name}]]:</p>
-            <p th:text="${message.messageText}" id="message-text"></p>
-        </span>
-</div>
+    <h1 th:text="${channel.channelName}" id="channel-name"></h1>
+    <div id="new-text">
+    </div>
 <hr/>
 <input id="messageBody"/>
 <script src="/js/messages.js"></script>
