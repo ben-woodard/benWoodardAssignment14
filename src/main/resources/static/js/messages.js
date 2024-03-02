@@ -1,4 +1,5 @@
-messageBody = document.getElementById("messageBody");
+const messageBody = document.getElementById("messageBody");
+let messageText = document.getElementById('message-text');
 const channelName = document.getElementById("channel-name").innerText;
 const name = sessionStorage.getItem("userName");
 
@@ -10,10 +11,10 @@ function checkForSessionName() {
         return window.location.replace("http://localhost:8080/welcome")
     }
 }
-messageBody.addEventListener('keydown', () => {
-    if (event.key === 'Enter') {
+messageBody.addEventListener('submit', () => {
+
         const message = {
-            "messageText": messageBody.value,
+            "messageText": messageText.value,
             "channel": {
                 "channelName": channelName
             },
@@ -31,7 +32,7 @@ messageBody.addEventListener('keydown', () => {
         }).then(response => {
             console.log(response)
         })
-    }
+
 })
 
 fetchNewContent();
