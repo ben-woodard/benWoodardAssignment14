@@ -7,14 +7,14 @@
 <body>
 <h1>Join Channel</h1>
     <div th:each="channel : ${channels}">
-        <a method="get" th:href="@{/channels/{channelId}(channelId=${channel.channelId})}">
+        <a method="get" th:href="@{/channel/{channelId}(channelId=${channel.channelId})}">
           <span th:text="${channel.channelName}">[[${channel.channelName}]]</span>
         </a>
     </div>
     <div>
-        <button id="create-channel"></button>
+        <button id="create-channel">Create New Channel</button>
     </div>
-<span th:if="${user != null}" th:text="${user.name}">[[${user.name}]]</span>
+
 <script src="/js/welcome.js"></script>
 </body>
 </html>

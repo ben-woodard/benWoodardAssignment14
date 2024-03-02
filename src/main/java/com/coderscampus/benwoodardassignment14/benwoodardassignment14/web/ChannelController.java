@@ -4,6 +4,8 @@ import com.coderscampus.benwoodardassignment14.benwoodardassignment14.domain.Cha
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.service.ChannelService;
 import com.coderscampus.benwoodardassignment14.benwoodardassignment14.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,7 @@ public class ChannelController {
         return "welcome";
     }
 
-    @GetMapping("channels/{channelId}")
+    @GetMapping("channel/{channelId}")
     public String getChannel(@PathVariable Long channelId, ModelMap model) {
         if (channelService.findById(channelId) == null) {
             return "redirect:/welcome";
@@ -38,4 +40,13 @@ public class ChannelController {
             return "messages";
         }
     }
+
+    @PostMapping("/channel/create")
+    public ResponseEntity createNewChannel(@RequestBody Channel channel) {
+        Channel newChannel = channelService.save(channel);
+        userService.saveChannelToAllUsers(newChannel);
+        return new ResponseEntity<>(channel, HttpStatus.OK);
+    }
+
+
 }

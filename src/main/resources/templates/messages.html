@@ -10,8 +10,12 @@
     <h1 th:text="${channel.channelName}" id="channel-name"></h1>
     <div id="new-text">
     </div>
-<hr/>
-<input id="messageBody"/>
+    <hr/>
+    <input id="messageBody"/>
+    <br>
+    <a method="get" th:href="@{/welcome}">Back</a>
+
+
 <script src="/js/messages.js"></script>
 </body>
 </html>

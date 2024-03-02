@@ -37,11 +37,16 @@ public class MessageController {
 
     @GetMapping("/message/{channelName}")
     public ResponseEntity getUpdatedMessages(@PathVariable String channelName) {
-        if(channelService.findAllMessages(channelName) != null) {
+        if(channelService.findByChannelName(channelName) == null){
+            return new ResponseEntity<>("MessageList is null", HttpStatus.BAD_REQUEST);
+        } else {
             List<Message> messageList = channelService.findAllMessages(channelName);
             return new ResponseEntity(messageList, HttpStatus.OK);
         }
-        return new ResponseEntity<>("MessageList is null", HttpStatus.BAD_REQUEST);
+
+
+
+
     }
 
 }

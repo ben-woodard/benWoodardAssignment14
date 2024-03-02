@@ -36,4 +36,12 @@ public class ChannelService {
         Channel channel = findByChannelName(channelName);
         return channel.getMessages();
     }
+
+//    public void saveChannelToAllUsers(Channel newChannel) {
+//        findAll().stream()
+//                .forEach(user -> {
+//                    user.getChannels().add(newChannel);
+//                    newChannel.getUsers().add(user);
+//                });
+//    }
 }

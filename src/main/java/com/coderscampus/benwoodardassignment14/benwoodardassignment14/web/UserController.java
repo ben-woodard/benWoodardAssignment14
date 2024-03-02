@@ -10,31 +10,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
-    private final ChannelService channelService;
+
     @Autowired
-    public UserController(UserService userService, ChannelService channelService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.channelService = channelService;
     }
 
     @PostMapping("/user/create")
     @ResponseBody
-    public ResponseEntity createUser(@RequestBody User user)  {
+    public ResponseEntity createUser(@RequestBody User user) {
+        if (user.getName().equals(null) || user.getName().equals("null") || user.getName().length() == 0) {
+            return new ResponseEntity("A User was submitted with an invalid username", HttpStatus.BAD_REQUEST);
+        }
         userService.save(user);
-        userService.checkUserContainsGeneralChannel(user);
-        if(userService.findById(user.getUserId()).equals(user)) {
-            return new ResponseEntity(user, HttpStatus.OK);
+//        userService.checkUserContainsGeneralChannel(user);  Moved method to save in userservice
+        if (userService.findById(user.getUserId()).equals(user)) {
+            return new ResponseEntity(user, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Error in saving the user", HttpStatus.BAD_REQUEST);
         }
-
     }
-
 }

@@ -6,7 +6,7 @@ const name = sessionStorage.getItem("userName");
 setInterval(checkForSessionName, 500);
 
 function checkForSessionName() {
-    if(sessionStorage.getItem("userName") === null) {
+    if(sessionStorage.getItem("userName") === "null" || sessionStorage.getItem("userName") === null) {
         return window.location.replace("http://localhost:8080/welcome")
     }
 }
@@ -29,13 +29,13 @@ messageBody.addEventListener('keydown', () => {
             },
             body: JSON.stringify(message)
         }).then(response => {
-            location.reload();
+            console.log(response)
         })
     }
 })
 
 fetchNewContent();
-setInterval(fetchNewContent, 2000);
+setInterval(fetchNewContent, 500);
 const textBox = document.getElementById('new-text');
 
 function fetchNewContent() {
@@ -48,9 +48,7 @@ function fetchNewContent() {
                 const newMessage = document.createElement('div');
                 newMessage.innerHTML = `<b> ${message.user.name}:</b> ${message.messageText}`
                 textBox.appendChild(newMessage);
-                // textBox.appendChild(newMessage);
             })
         })
         .catch(error => console.log("There was an error:", error))
-
 }
