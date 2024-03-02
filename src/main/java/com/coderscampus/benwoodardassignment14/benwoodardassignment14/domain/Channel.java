@@ -20,6 +20,7 @@ public class Channel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long channelId;
+    @Column(unique = true)
     private String channelName;
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "channels")
     @JsonIgnore

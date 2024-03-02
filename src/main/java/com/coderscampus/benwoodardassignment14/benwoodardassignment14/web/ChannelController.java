@@ -48,5 +48,4 @@ public class ChannelController {
         return new ResponseEntity<>(channel, HttpStatus.OK);
     }
 
-
 }

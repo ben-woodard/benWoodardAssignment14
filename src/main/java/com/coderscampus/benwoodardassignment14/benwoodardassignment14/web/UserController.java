@@ -28,11 +28,11 @@ public class UserController {
             return new ResponseEntity("A User was submitted with an invalid username", HttpStatus.BAD_REQUEST);
         }
         userService.save(user);
-//        userService.checkUserContainsGeneralChannel(user);  Moved method to save in userservice
         if (userService.findById(user.getUserId()).equals(user)) {
             return new ResponseEntity(user, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>("Error in saving the user", HttpStatus.BAD_REQUEST);
         }
     }
+
 }

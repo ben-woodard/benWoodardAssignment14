@@ -3,17 +3,17 @@ greetUser();
 function greetUser() {
     if (sessionStorage.getItem("userName") === null) {
         let name = prompt("Please Enter Your Name");
-        if(name === '' || name === 'null' || name === null || name === undefined) {
-           const newName = promptForNewUserName();
-           saveNameToSessionAndCreateUser(newName);
+        if (name === '' || name === 'null' || name === null || name === undefined) {
+            const newName = promptForNewUserName();
+            saveNameToSessionAndCreateUser(newName);
         } else {
-           saveNameToSessionAndCreateUser(name);
+            saveNameToSessionAndCreateUser(name);
         }
     }
 }
 
 function promptForNewUserName() {
-    const name = prompt("Please Enter A Name with At Least One Character");
+    const name = prompt("This username is unavailable, please enter another");
     return name;
 }
 
@@ -40,7 +40,7 @@ function createUser(storageName) {
 }
 
 checkForSessionName();
-setInterval(checkForSessionName, 5000);
+setInterval(checkForSessionName, 1000);
 
 function checkForSessionName() {
     if (sessionStorage.getItem("userName") === "null" || sessionStorage.getItem("userName") === null ||
@@ -55,7 +55,7 @@ createChannelButton.addEventListener('click', createNewChannel)
 
 function createNewChannel() {
     let channelName = prompt("Please Input A Channel Name");
-    while(channelName === null || channelName === ''){
+    while (channelName === null || channelName === '') {
         channelName = prompt("Please Type A Channel Name With At least 1 character");
     }
     const channel = {
@@ -71,7 +71,7 @@ function createNewChannel() {
         .then(response => response.json())
         .then(channel => {
             console.log(channel);
-            if(channel.channelId != null){
+            if (channel.channelId != null) {
                 location.reload()
             } else {
                 alert("There was an error creating your channel")
@@ -80,5 +80,3 @@ function createNewChannel() {
         })
         .catch(error => console.log("there was an error creating a channel", error));
 }
-
-
