@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/message")
 public class MessageController {
 
     private final MessageService messageService;
@@ -25,7 +23,8 @@ public class MessageController {
         this.channelService = channelService;
     }
 
-    @PostMapping("message/create")
+    @PostMapping("/create")
+    @ResponseBody
     public ResponseEntity createMessage(@RequestBody Message message) {
         messageService.save(message);
         if(message != null) {
@@ -35,7 +34,8 @@ public class MessageController {
         }
     }
 
-    @GetMapping("/message/{channelName}")
+    @GetMapping("/{channelName}")
+    @ResponseBody
     public ResponseEntity getUpdatedMessages(@PathVariable String channelName) {
         if(channelService.findByChannelName(channelName) == null){
             return new ResponseEntity<>("MessageList is null", HttpStatus.BAD_REQUEST);

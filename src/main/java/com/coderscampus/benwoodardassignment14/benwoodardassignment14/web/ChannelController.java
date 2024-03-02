@@ -42,6 +42,7 @@ public class ChannelController {
     }
 
     @PostMapping("/channel/create")
+    @ResponseBody
     public ResponseEntity createNewChannel(@RequestBody Channel channel) {
         Channel newChannel = channelService.save(channel);
         userService.saveChannelToAllUsers(newChannel);
