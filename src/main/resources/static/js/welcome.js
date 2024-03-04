@@ -15,7 +15,7 @@ async function createUser() {
         'name': name
     }
     try {
-        let responseEntity = await fetch('/user/create', {
+        let responseEntity = await fetch('/users/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,13 +35,13 @@ createChannelButton.addEventListener('click', createNewChannel)
 
 function createNewChannel() {
     let channelName = prompt("Please Input A Channel Name");
-    while (channelName === null || channelName === '') {
+    if (channelName === null || channelName === '') {
         channelName = prompt("Please Type A Channel Name With At least 1 character");
     }
     const channel = {
         "channelName": channelName
     }
-    fetch('/channel/create', {
+    fetch('/channels/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

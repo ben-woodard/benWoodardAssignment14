@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -30,7 +30,7 @@ public class UserController {
         }
         userService.save(user);
         if (userService.findById(user.getUserId()).equals(user)) {
-            return new ResponseEntity(user, HttpStatus.CREATED);
+            return new ResponseEntity(user, HttpStatus.OK);
         } else {
             return new ResponseEntity<>("Error in saving the user", HttpStatus.BAD_REQUEST);
         }
