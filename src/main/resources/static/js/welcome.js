@@ -1,52 +1,32 @@
-greetUser();
-
-function greetUser() {
-    if (sessionStorage.getItem("userName") === null) {
-        let name = prompt("Please Enter Your Name");
-        if (name === '' || name === 'null' || name === null || name === undefined) {
-            const newName = promptForNewUserName();
-            saveNameToSessionAndCreateUser(newName);
-        } else {
-            saveNameToSessionAndCreateUser(name);
-        }
+if (sessionStorage.getItem("userName") === null) {
+    let name = prompt("please type your name");
+    if (name == '' || name === null) {
+        let newName = prompt("please type a name with at least one character")
+        sessionStorage.setItem("userName", newName);
+        createUser();
+    } else {
+        sessionStorage.setItem("userName", name);
+        createUser();
     }
 }
-
-function promptForNewUserName() {
-    const name = prompt("This username is unavailable, please enter another");
-    return name;
-}
-
-function saveNameToSessionAndCreateUser(name) {
-    sessionStorage.setItem("userName", name);
-    const storageName = sessionStorage.getItem("userName")
-    createUser(storageName);
-}
-
-function createUser(storageName) {
+async function createUser() {
+    let name = sessionStorage.getItem("userName")
     const user = {
-        'name': storageName
+        'name': name
     }
-    fetch('/user/create', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-    }).then(response => {
-        console.log(response);
-        location.reload();
-    })
-}
-
-checkForSessionName();
-setInterval(checkForSessionName, 1000);
-
-function checkForSessionName() {
-    if (sessionStorage.getItem("userName") === "null" || sessionStorage.getItem("userName") === null ||
-        sessionStorage.getItem("userName").length === 0 || sessionStorage.getItem("userName").length === undefined) {
-        sessionStorage.clear();
-        return window.location.replace("http://localhost:8080/welcome")
+    try {
+        let responseEntity = await fetch('/users/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        let returnedUser = await responseEntity.json();
+        await sessionStorage.setItem("user", JSON.stringify(returnedUser));
+        await location.reload();
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -55,13 +35,13 @@ createChannelButton.addEventListener('click', createNewChannel)
 
 function createNewChannel() {
     let channelName = prompt("Please Input A Channel Name");
-    while (channelName === null || channelName === '') {
+    if (channelName === null || channelName === '') {
         channelName = prompt("Please Type A Channel Name With At least 1 character");
     }
     const channel = {
         "channelName": channelName
     }
-    fetch('/channel/create', {
+    fetch('/channels/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -80,3 +60,14 @@ function createNewChannel() {
         })
         .catch(error => console.log("there was an error creating a channel", error));
 }
+
+// checkForSessionName();
+// setInterval(checkForSessionName, 1000);
+//
+// function checkForSessionName() {
+//     if (sessionStorage.getItem("userName") === "null" || sessionStorage.getItem("userName") === null ||
+//         sessionStorage.getItem("userName").length === 0 || sessionStorage.getItem("userName").length === undefined) {
+//         sessionStorage.clear();
+//         return window.location.replace("http://localhost:8080/welcome")
+//     }
+// }

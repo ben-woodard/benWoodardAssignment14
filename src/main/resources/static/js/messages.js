@@ -23,7 +23,7 @@ messageBody.addEventListener('submit', () => {
             }
         }
         console.log(message)
-        fetch('/message/create', {
+        fetch('/messages/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ setInterval(fetchNewContent, 500);
 const textBox = document.getElementById('new-text');
 
 function fetchNewContent() {
-    return fetch(`/message/${channelName}`)
+    return fetch(`/messages/${channelName}`)
         .then(response => response.json())
         .then(message => {
             console.log(message)

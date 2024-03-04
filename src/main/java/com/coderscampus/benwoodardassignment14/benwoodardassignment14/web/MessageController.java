@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/message")
+@RequestMapping("/messages")
 public class MessageController {
 
     private final MessageService messageService;
@@ -26,8 +26,8 @@ public class MessageController {
     @PostMapping("/create")
     @ResponseBody
     public ResponseEntity createMessage(@RequestBody Message message) {
-        messageService.save(message);
-        if(message != null) {
+        if(message.getMessageText() != null) {
+            messageService.save(message);
             return new ResponseEntity(message, HttpStatus.OK);
         } else {
             return new ResponseEntity("Error in saving the message", HttpStatus.BAD_REQUEST);
@@ -43,10 +43,6 @@ public class MessageController {
             List<Message> messageList = channelService.findAllMessages(channelName);
             return new ResponseEntity(messageList, HttpStatus.OK);
         }
-
-
-
-
     }
 
 }

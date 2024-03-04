@@ -30,7 +30,7 @@ public class ChannelController {
         return "welcome";
     }
 
-    @GetMapping("channel/{channelId}")
+    @GetMapping("channels/{channelId}")
     public String getChannel(@PathVariable Long channelId, ModelMap model) {
         if (channelService.findById(channelId) == null) {
             return "redirect:/welcome";
@@ -41,7 +41,7 @@ public class ChannelController {
         }
     }
 
-    @PostMapping("/channel/create")
+    @PostMapping("/channels/create")
     @ResponseBody
     public ResponseEntity createNewChannel(@RequestBody Channel channel) {
         Channel newChannel = channelService.save(channel);
