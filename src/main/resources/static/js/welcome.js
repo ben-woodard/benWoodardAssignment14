@@ -3,14 +3,14 @@ if (sessionStorage.getItem("userName") === null) {
     if (name == '' || name === null) {
         let newName = prompt("please type a name with at least one character")
         sessionStorage.setItem("userName", newName);
-        createUser();
+        createUser(newName);
     } else {
         sessionStorage.setItem("userName", name);
-        createUser();
+        createUser(name);
     }
 }
-async function createUser() {
-    let name = sessionStorage.getItem("userName")
+
+async function createUser(name) {
     const user = {
         'name': name
     }
@@ -24,7 +24,7 @@ async function createUser() {
         })
         let returnedUser = await responseEntity.json();
         await sessionStorage.setItem("user", JSON.stringify(returnedUser));
-        await location.reload();
+        await window.location.replace("http://localhost:8080/welcome")
     } catch (error) {
         console.log(error);
     }
@@ -55,7 +55,7 @@ function createNewChannel() {
                 location.reload()
             } else {
                 alert("There was an error creating your channel")
-                location.reload()
+                return window.location.replace("http://localhost:8080/welcome")
             }
         })
         .catch(error => console.log("there was an error creating a channel", error));
@@ -67,7 +67,6 @@ function createNewChannel() {
 // function checkForSessionName() {
 //     if (sessionStorage.getItem("userName") === "null" || sessionStorage.getItem("userName") === null ||
 //         sessionStorage.getItem("userName").length === 0 || sessionStorage.getItem("userName").length === undefined) {
-//         sessionStorage.clear();
 //         return window.location.replace("http://localhost:8080/welcome")
 //     }
 // }
