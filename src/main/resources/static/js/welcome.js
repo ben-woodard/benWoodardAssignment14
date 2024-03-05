@@ -1,14 +1,22 @@
-if (sessionStorage.getItem("userName") === null) {
-    let name = prompt("please type your name");
-    if (name == '' || name === null) {
-        let newName = prompt("please type a name with at least one character")
-        sessionStorage.setItem("userName", newName);
-        createUser(newName);
-    } else {
-        sessionStorage.setItem("userName", name);
-        createUser(name);
-    }
+let name = sessionStorage.getItem('userName');
+if(!name) {
+    name = prompt("please type a name with at least one character");
+    createUser(name);
+} else {
+    alert(`Welcome Back ${name}`)
 }
+
+// if (sessionStorage.getItem("userName") === null) {
+//     let name = prompt("please type your name");
+//     if (name == '' || name === null) {
+//         let newName = prompt("please type a name with at least one character")
+//         sessionStorage.setItem("userName", newName);
+//         createUser(newName);
+//     } else {
+//         sessionStorage.setItem("userName", name);
+//         createUser(name);
+//     }
+// }
 
 async function createUser(name) {
     const user = {
