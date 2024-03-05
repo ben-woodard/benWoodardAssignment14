@@ -1,14 +1,14 @@
 greetUser();
+
 function greetUser() {
     if (!sessionStorage.getItem('userName') || sessionStorage.getItem("userName") === "null") {
-       let name = prompt("Please Enter Your Name");
+        let name = prompt("Please Enter Your Name");
         if (name == '' || name === null) {
             let newName = prompt("please type a name with at least one character")
             sessionStorage.setItem("userName", newName);
             createUser(newName);
 
-        }
-        else {
+        } else {
             sessionStorage.setItem("userName", name);
             createUser(name);
         }
@@ -16,8 +16,9 @@ function greetUser() {
 }
 
 setInterval(check, 1000);
+
 function check() {
-    if(!sessionStorage.getItem("userName")) {
+    if (!sessionStorage.getItem("userName")) {
         window.location.replace("http://localhost:8080/welcome")
     }
 }
