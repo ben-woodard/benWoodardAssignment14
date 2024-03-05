@@ -23,6 +23,11 @@ public class ChannelController {
         this.userService = userService;
     }
 
+    @GetMapping("")
+    public String redirectToWelcomePage() {
+        return "redirect:/welcome";
+    }
+
     @GetMapping("/welcome")
     public String getWelcomePage(ModelMap modelMap)  {
         if(!channelService.findAll().isEmpty()){
